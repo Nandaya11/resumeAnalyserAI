@@ -25,11 +25,10 @@ this project is divided into 2 parts (frontend and backend)
 
 
 # DEMO : 
-    <video src="./Assets/demo.webm" controls width="640" />
-
+    https://github.com/user-attachments/assets/9bfbb9be-c19a-4637-9cad-7a1218219f1c
 
 # SCREENSHOTS : 
-   <img src="./assets/1.png" width="500" alt="App Screenshot">
-   <img src="./assets/2.png" width="500" alt="App Screenshot">
-   <img src="./assets/3.png" width="500" alt="App Screenshot">
-   <img src="./assets/4.png" width="500" alt="App Screenshot">
+<img width="1897" height="900" alt="Image" src="https://github.com/user-attachments/assets/f6ba9e1a-cd0c-437d-8f81-916268323eff" />
+<img width="1897" height="900" alt="Image" src="https://github.com/user-attachments/assets/ffc2312d-1553-4669-8928-7553ab3400e2" />
+<img width="1897" height="900" alt="Image" src="https://github.com/user-attachments/assets/cbbfc559-ac93-4234-9dc2-bcb04cd682f7" />
+<img width="1897" height="900" alt="Image" src="https://github.com/user-attachments/assets/d089b750-51e3-42ee-8bed-9574d150499c" />
