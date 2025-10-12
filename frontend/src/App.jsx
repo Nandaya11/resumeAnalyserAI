@@ -11,7 +11,7 @@ function App() {
         <div className="relative inline-flex items-center bg-gray-200 rounded-full p-1">
           {/* Sliding background */}
           <div
-            className={`absolute top-1 bottom-1 w-1/2 bg-blue-600 rounded-full transition-transform duration-300 ease-in-out ${
+            className={`absolute top-1 bottom-1 w-1/2 bg-blue-900 rounded-full transition-transform duration-300 ease-in-out ${
               activeTab === 'history' ? 'translate-x-full' : 'translate-x-0'
             }`}
           />
@@ -42,7 +42,6 @@ function App() {
         </div>
       </div>
 
-      {/* Conditional rendering based on active tab */}
       {activeTab === 'analyse' ? <ResumeUpload /> : <ResumeHistory />}
     </>
   );

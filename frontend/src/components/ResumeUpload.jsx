@@ -28,7 +28,7 @@ const ResumeUpload = () => {
     formData.append("file", file);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/upload-resume", {
+      const res = await fetch("http://127.0.0.1:8000/upload-resume", {
         method: "POST",
         body: formData,
       });
@@ -203,7 +203,6 @@ const ResumeUpload = () => {
               )}
             </div>
 
-            {/* Work Experience */}
             {response.work_experience && response.work_experience.length > 0 && (
               <div className="bg-white rounded-2xl shadow-lg p-6">
                 <div className="flex items-center gap-3 mb-4">

@@ -23,7 +23,6 @@ export default function ResumeHistory() {
     }
   };
 
-  // Auto-fetch resumes when the component mounts
   useEffect(() => {
     fetchResumes();
   }, []);

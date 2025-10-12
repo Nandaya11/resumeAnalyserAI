@@ -13,17 +13,14 @@ class ResumeParser:
 
     def extract_text_from_pdf(self, pdf_content: bytes) -> str:
         try:
-            # Create a BytesIO object from the PDF content
             pdf_file = io.BytesIO(pdf_content)
 
-            # Initialize PDF reader
             pdf_reader = PyPDF2.PdfReader(pdf_file)
             
             if len(pdf_reader.pages) == 0:
                 logger.error("PDF has no pages")
                 raise Exception("PDF file appears to be empty")
 
-            # Extract text from all pages
             text = ""
             for i, page in enumerate(pdf_reader.pages):
                 page_text = page.extract_text()

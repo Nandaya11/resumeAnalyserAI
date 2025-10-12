@@ -17,14 +17,14 @@ class Resume(Base):
     location = Column(String)
 
     professional_summary = Column(Text)
-    core_skills = Column(JSON)  # List of skills
-    soft_skills = Column(JSON)  # List of soft skills
-    work_experience = Column(JSON)  # List of work experience objects
-    education = Column(JSON)  # List of education objects
-    certifications = Column(JSON)  # List of certifications
+    core_skills = Column(JSON)  
+    soft_skills = Column(JSON)  
+    work_experience = Column(JSON) 
+    education = Column(JSON)  
+    certifications = Column(JSON)  
 
     resume_rating = Column(Float)
-    improvement_areas = Column(JSON)  # List of improvement suggestions
-    upskill_suggestions = Column(JSON)  # List of upskill recommendations
+    improvement_areas = Column(JSON)  
+    upskill_suggestions = Column(JSON)  
 
     raw_text = Column(Text)

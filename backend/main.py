@@ -44,24 +44,22 @@ def get_all_resumes(db: Session = Depends(database.get_db)):
     return resumes
 
 
-@app.post("/api/upload-resume", response_model=schema.ResumeAnalysisResponse)
+@app.post("/upload-resume", response_model=schema.ResumeAnalysisResponse)
 async def upload_resume(
     file: UploadFile = File(...),
     db: Session = Depends(database.get_db)
 ):
     try:
-        # Validate file type
+
         if not file.filename.endswith('.pdf'):
             raise HTTPException(status_code=400, detail="Only PDF files are supported")
 
-        # Read file content
         logger.info(f"Reading uploaded file: {file.filename}")
         content = await file.read()
         
         if len(content) == 0:
             raise HTTPException(status_code=400, detail="Uploaded file is empty")
 
-        # Extract text from PDF
         try:
             extracted_text = resume_parser.extract_text_from_pdf(content)
             logger.info(f"Successfully extracted {len(extracted_text)} characters from PDF")
@@ -69,11 +67,9 @@ async def upload_resume(
             logger.error(f"PDF extraction error: {str(pdf_error)}")
             raise HTTPException(status_code=400, detail=f"Error extracting text from PDF: {str(pdf_error)}")
 
-        # Validate extracted text
         if not extracted_text or len(extracted_text.strip()) < 10:
             raise HTTPException(status_code=400, detail="Could not extract meaningful text from the PDF")
 
-        # Parse resume using Gemini AI
         try:
             analysis_result = await gemini_analyzer.analyze_resume(extracted_text)
             logger.info("Successfully analyzed resume with Gemini AI")
@@ -81,18 +77,15 @@ async def upload_resume(
             logger.error(f"Gemini analysis error: {str(gemini_error)}")
             raise HTTPException(status_code=500, detail=f"Error analyzing resume: {str(gemini_error)}")
 
-        # Flatten the nested structure for database storage
         db_resume = models.Resume(
             id=str(uuid.uuid4()),
             filename=file.filename,
             upload_date=datetime.utcnow(),
-            # Personal info
             name=analysis_result["personal_info"]["name"],
             email=analysis_result["personal_info"]["email"],
             phone=analysis_result["personal_info"]["phone"],
-            # AI Analysis
+
             resume_rating=analysis_result["ai_analysis"]["rating"],
-            # Other fields (assuming these exist in your Resume model)
             work_experience=analysis_result.get("work_experience"),
             education=analysis_result.get("education"),
             certifications=analysis_result.get("certifications"),
@@ -104,7 +97,6 @@ async def upload_resume(
 
         logger.info(f"Resume uploaded and analyzed: {file.filename}")
 
-        # Return the nested structure as expected by the response model
         return schema.ResumeAnalysisResponse(**analysis_result)
 
     except Exception as e:

@@ -36,10 +36,10 @@ class GeminiAnalyzer:
             google_api_key=api_key
         )
 
-        # Set up output parser
+        # output parser
         self.parser = PydanticOutputParser(pydantic_object=ResumeAnalysisOutput)
 
-        # Create prompt template
+        # prompt template
         self.prompt_template = PromptTemplate(
             template='''You are an expert resume analyzer and career counselor. 
             Analyze the following resume text and extract structured information.
@@ -80,15 +80,15 @@ class GeminiAnalyzer:
 
             logger.info(f"Analyzing resume text (length: {len(resume_text)})")
             
-            # Create the prompt
+            # prompt
             prompt = self.prompt_template.format(resume_text=resume_text)
             logger.info("Created prompt for Gemini")
 
-            # Get response from Gemini
+            # response from Gemini
             try:
                 response = self.llm.invoke(prompt)
                 logger.info("Received response from Gemini")
-                logger.info(f"Response content: {response.content[:500]}...")  # Log first 500 chars
+                logger.info(f"Response content: {response.content[:500]}...")  
             except Exception as gemini_error:
                 logger.error(f"Gemini API error: {str(gemini_error)}")
                 raise
@@ -102,7 +102,7 @@ class GeminiAnalyzer:
                 logger.error(f"Raw response content: {response.content[:500]}...")
                 raise
 
-            # Convert to dictionary format expected by the API (FIXED STRUCTURE)
+            # Convert to dictionary format
             result = {
                 "personal_info": {
                     "name": parsed_result.name,
@@ -133,7 +133,7 @@ class GeminiAnalyzer:
 
         except Exception as e:
             logger.error(f"Error analyzing resume with Gemini: {str(e)}")
-            # Return proper structure even on error
+
             return {
                 "personal_info": {
                     "name": "Unable to extract",
@@ -152,14 +152,9 @@ class GeminiAnalyzer:
                     "upskill_suggestions": []
                 }
             }
-    def _calculate_experience_years(self, work_experience: List[dict]) -> int:
-        """Helper method to calculate total years of experience"""
-        # Implement logic to parse duration and sum up years
-        # For now, return a simple count
-        return len(work_experience)
 
     def _fallback_analysis(self, resume_text: str) -> dict:
-        # Basic fallback analysis without AI
+
         return {
             "name": "Unable to extract",
             "email": "Unable to extract",
