@@ -16,7 +16,7 @@ DBNAME = os.getenv("dbname")
 # URL-encode the password to handle special characters
 encoded_password = quote_plus(PASSWORD) if PASSWORD else ""
 
-DATABASE_URL = f"postgresql://{USER}:{encoded_password}@{HOST}:{PORT}/{DBNAME}"
+DATABASE_URL = f"postgresql://{USER}:{encoded_password}@{HOST}:{PORT}/{DBNAME}?sslmode=require"
 print("Database URL:", DATABASE_URL)
 
 engine = create_engine(DATABASE_URL)
