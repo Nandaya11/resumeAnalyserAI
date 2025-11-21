@@ -7,7 +7,7 @@ from urllib.parse import quote_plus
 
 load_dotenv()
 
-USER = os.getenv("user", "postgres")
+USER = os.getenv("user", "postgresql")
 PASSWORD = os.getenv("password")
 HOST = os.getenv("host")
 PORT = os.getenv("port")
